@@ -12,7 +12,6 @@ const defaultValue = {
 };
 
 const SignInForm = () => {
-    const { setCurrentUser } = useContext(UserContext);
     const [formFields, setFormFields] = useState(defaultValue);
     const { email, password } = formFields;
 
@@ -32,7 +31,6 @@ const SignInForm = () => {
         event.preventDefault();
         try {
             const { user } = await SignInAuthUserWithEmailPassword(email, password);
-            setCurrentUser(user);
             resetFormField();
         } catch (error) {
             if (error.code === 'auth/wrong-password') {
