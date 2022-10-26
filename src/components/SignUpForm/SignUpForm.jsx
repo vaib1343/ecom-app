@@ -1,14 +1,18 @@
-import './SignUpForm.scss';
-import React, { useState } from 'react';
-import FormInput from '../FormInput/FormInput';
-import { createAuthUserWithEmailPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebaseUtils';
-import Button from '../Button/Button';
+import "./SignUpForm.scss";
+import React, { useState } from "react";
+import FormInput from "../FormInput/FormInput";
+import {
+    createAuthUserWithEmailPassword,
+    createUserDocumentFromAuth,
+} from "../../utils/firebase/firebaseUtils";
+import Button from "../Button/Button";
+import { toast } from "react-toastify";
 
 const defaultValue = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    displayName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
 };
 
 const SignUpForm = () => {
@@ -30,36 +34,73 @@ const SignUpForm = () => {
     const handleSubmit = async (event) => {
         try {
             event.preventDefault();
-            if (password === confirmPassword && email && password) {
-                const { user } = await createAuthUserWithEmailPassword(email, password);
+            if (password === confirmPassword) {
+                const { user } = await createAuthUserWithEmailPassword(
+                    email,
+                    password
+                );
                 await createUserDocumentFromAuth(user, { displayName });
                 resetFormField();
+            }else{
+                toast("Password doesn't match",{
+                    type:'error'
+                })
             }
         } catch (error) {
-            if (error.code === 'auth/email-already-in-use') {
-                alert('Cannot create user, email already in use');
+            if (error.code === "auth/email-already-in-use") {
+                toast("Cannot create user, email already in use", {
+                    type: "error",
+                });
             } else {
-                console.log('user creation encountered an error', error);
+                console.log("user creation encountered an error", error);
             }
         }
     };
 
     return (
-        <div className='sign-up-container'>
+        <div className="sign-up-container">
             <form onSubmit={handleSubmit}>
                 <h2>Don't have an account?</h2>
                 <span>Sign Up with your email and password</span>
                 <div>
-                    <FormInput label='Display name' type='text' required name='displayName' onChange={handleChange} value={displayName} />
+                    <FormInput
+                        label="Display name"
+                        type="text"
+                        required
+                        name="displayName"
+                        onChange={handleChange}
+                        value={displayName}
+                    />
                 </div>
                 <div>
-                    <FormInput label='Email' type='email' required name='email' onChange={handleChange} value={email} />
+                    <FormInput
+                        label="Email"
+                        type="email"
+                        required
+                        name="email"
+                        onChange={handleChange}
+                        value={email}
+                    />
                 </div>
                 <div>
-                    <FormInput label='Password' type='password' required name='password' onChange={handleChange} value={password} />
+                    <FormInput
+                        label="Password"
+                        type="password"
+                        required
+                        name="password"
+                        onChange={handleChange}
+                        value={password}
+                    />
                 </div>
                 <div>
-                    <FormInput label='Confirm Password' type='password' required name='confirmPassword' onChange={handleChange} value={confirmPassword} />
+                    <FormInput
+                        label="Confirm Password"
+                        type="password"
+                        required
+                        name="confirmPassword"
+                        onChange={handleChange}
+                        value={confirmPassword}
+                    />
                 </div>
                 <Button>Sign Up</Button>
             </form>
