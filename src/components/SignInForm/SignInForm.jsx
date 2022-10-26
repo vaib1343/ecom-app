@@ -3,8 +3,7 @@ import React, { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import FormInput from '../FormInput/FormInput';
 import Button from '../Button/Button';
-import { UserContext } from '../../context/userContext';
-import { auth, createUserDocumentFromAuth, signInWithGooglePopup, SignInAuthUserWithEmailPassword } from '../../utils/firebase/firebaseUtils';
+import { signInWithGooglePopup, SignInAuthUserWithEmailPassword } from '../../utils/firebase/firebaseUtils';
 
 const defaultValue = {
     email: '',
@@ -30,7 +29,7 @@ const SignInForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { user } = await SignInAuthUserWithEmailPassword(email, password);
+            await SignInAuthUserWithEmailPassword(email, password);
             resetFormField();
         } catch (error) {
             if (error.code === 'auth/wrong-password') {
@@ -48,8 +47,7 @@ const SignInForm = () => {
     };
 
     const handleSignIn = async () => {
-        const { user } = await signInWithGooglePopup();
-        createUserDocumentFromAuth(user);
+        await signInWithGooglePopup();
     };
 
     return (
