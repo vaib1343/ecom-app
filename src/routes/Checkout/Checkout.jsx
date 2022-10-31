@@ -4,7 +4,7 @@ import './Checkout.scss';
 
 const Checkout = () => {
     return (
-        <div>
+        <div className='checkout-container'>
             <CheckOutTable />
         </div>
     );
