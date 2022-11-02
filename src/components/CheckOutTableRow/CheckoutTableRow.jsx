@@ -2,7 +2,7 @@ import React from 'react';
 import { ImCross } from 'react-icons/im';
 import { AiOutlineCaretLeft, AiOutlineCaretRight } from 'react-icons/ai';
 import { useContext } from 'react';
-import { CartContext } from '../context/cartContext';
+import { CartContext } from '../../context/cartContext';
 import './CheckoutTableRow.scss';
 
 const CheckoutTableRow = ({ product }) => {

@@ -1,7 +1,7 @@
 import './CheckOutTable.scss';
 import React, { Fragment, useContext } from 'react';
 import { CartContext } from '../../context/cartContext';
-import CheckoutTableRow from '../../CheckOutTableRow/CheckoutTableRow';
+import CheckoutTableRow from '../CheckOutTableRow/CheckoutTableRow';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 
