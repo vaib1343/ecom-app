@@ -1,4 +1,5 @@
-import './Navigation.scss';
+// import './Navigation.scss';
+import { NavigationContainer, LogoContainer, NavLinkContainer, NavLink } from './Navigation.styles';
 import React, { Fragment, useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
@@ -19,31 +20,30 @@ const Navigation = () => {
     };
     return (
         <Fragment>
-            <div className='navigation'>
-                <Link className='logo-container' to='/'>
-                    <div className=''>
+            <NavigationContainer>
+                <LogoContainer to='/'>
+                    <div>
                         <img src='/crown.svg' />
                     </div>
-                </Link>
-                <div className='nav-links-container'>
-                    <Link className='nav-links' to='/shop'>
+                </LogoContainer>
+                <NavLinkContainer>
+                    <NavLink to='/shop'>SHOP</NavLink>
+                    {/* <Link className='nav-links' to='/shop'>
                         SHOP
-                    </Link>
+                    </Link> */}
                     {currentUser ? (
-                        <span className='nav-links' onClick={signOutHandler}>
+                        <NavLink as='span' onClick={signOutHandler}>
                             SIGN OUT
-                        </span>
+                        </NavLink>
                     ) : (
-                        <Link className='nav-links' to='/auth'>
-                            SIGNIN
-                        </Link>
+                        <NavLink to='/auth'>SIGN IN</NavLink>
                     )}
                     <div onClick={handleCart}>
                         <CartIcon />
                     </div>
-                </div>
+                </NavLinkContainer>
                 {isCartOpen && <CartDropdown />}
-            </div>
+            </NavigationContainer>
             <Outlet />
         </Fragment>
     );

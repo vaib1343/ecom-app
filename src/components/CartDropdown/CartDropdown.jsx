@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import './CartDropdown.scss';
+import { CartDropdownContainer, EmptyMessage, CartItems } from './CartDropdown.styles.js';
 import Button from '../Button/Button';
 import { CartContext } from '../../context/cartContext';
 import CartItem from '../CartItem/CartItem';
@@ -18,21 +18,21 @@ const CartDropdown = () => {
         setIsCartOpen(false);
     };
     return (
-        <div className='cart-dropdown-container'>
-            <div className='cart-items'>
+        <CartDropdownContainer>
+            <CartItems>
                 {!!cartItems.length ? (
                     cartItems.map((product) => {
                         return <CartItem key={product.id} cartItem={product} />;
                     })
                 ) : (
-                    <span className='empty-message'>No Item added</span>
+                    // <span className='empty-message'>No Item added</span>
+                    <EmptyMessage>No Item added</EmptyMessage>
                 )}
-                {}
-            </div>
+            </CartItems>
             <div>
                 <Button onClick={handleCheckout}>CHECKOUT</Button>
             </div>
-        </div>
+        </CartDropdownContainer>
     );
 };
 

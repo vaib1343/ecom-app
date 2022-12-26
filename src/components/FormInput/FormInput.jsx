@@ -1,17 +1,17 @@
 import React, { Fragment } from 'react';
-import './FormInput.scss';
+import { Group, FormInput, FormInputLabel } from './FormInput.styles';
 
-const FormInput = ({ label, name, ...remainingProps }) => {
+const FormInputField = ({ label, name, ...remainingProps }) => {
     return (
-        <div className='group'>
-            <input className='form-input' {...remainingProps} name={name} />
+        <Group>
+            <FormInput {...remainingProps} name={name} />
             {label && (
-                <label className={`${remainingProps.value.length ? 'shrink' : ''} form-input-label`} htmlFor={name}>
+                <FormInputLabel shrink={remainingProps.value.length} htmlFor={name}>
                     {label}
-                </label>
+                </FormInputLabel>
             )}
-        </div>
+        </Group>
     );
 };
 
-export default FormInput;
+export default FormInputField;

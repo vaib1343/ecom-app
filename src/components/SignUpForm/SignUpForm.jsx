@@ -68,7 +68,7 @@ const SignUpForm = () => {
                 <div>
                     <FormInput label='Confirm Password' type='password' required name='confirmPassword' onChange={handleChange} value={confirmPassword} />
                 </div>
-                <Button>Sign Up</Button>
+                <Button type='submit' buttonType='inverted'>Sign Up</Button>
             </form>
         </div>
     );
