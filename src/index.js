@@ -9,14 +9,23 @@ import { ToastContainer } from "react-toastify";
 import { UserProvider } from "./context/userContext";
 import { CategoriesProvider } from "./context/categoriesContext";
 import { CartProvider } from "./context/cartContext";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "./utils/stripe/stripeUtils";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const options = {
+
+}
 root.render(
     <React.StrictMode>
         <BrowserRouter>
             <UserProvider>
                 <CategoriesProvider>
                     <CartProvider>
-                        <App />
+                        <Elements stripe={stripePromise}>
+                            <App />
+                        </Elements>
                     </CartProvider>
                 </CategoriesProvider>
                 <ToastContainer />

@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import FormInput from '../FormInput/FormInput';
 import Button from '../Button/Button';
+import { useNavigate } from 'react-router-dom';
 import { signInWithGooglePopup, SignInAuthUserWithEmailPassword } from '../../utils/firebase/firebaseUtils';
 
 const defaultValue = {
@@ -13,6 +14,7 @@ const defaultValue = {
 const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultValue);
     const { email, password } = formFields;
+    const navigate = useNavigate();
 
     const resetFormField = () => {
         setFormFields(defaultValue);
@@ -29,7 +31,11 @@ const SignInForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await SignInAuthUserWithEmailPassword(email, password);
+            const user = await SignInAuthUserWithEmailPassword(email, password);
+            if(user) {
+                navigate('/')
+            }
+            console.log(user)
             resetFormField();
         } catch (error) {
             if (error.code === 'auth/wrong-password') {
